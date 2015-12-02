@@ -42,10 +42,18 @@ def get_flanking_intron(bed, direction, genome, nt):
 class ForegroundBackgroundPair(object):
 
     def __init__(self, foreground, background):
-        self.foreground = foreground
-        self.background = background
+        self.foreground = self.maybe_make_bedtool(foreground)
+        self.background = self.maybe_make_bedtool(background)
         self.beds = {'foreground': self.foreground,
                      'background': self.background}
+
+    @staticmethod
+    def maybe_make_bedtool(filename):
+        """If not already a bedtool, make one"""
+        if isinstance(filename, pybedtools.BedTool):
+            return filename
+        else:
+            return pybedtools.BedTool(filename)
 
     def __repr__(self):
         s = 'ForegroundBackgroundPair:\nForeground: {} ({}) entries' \
