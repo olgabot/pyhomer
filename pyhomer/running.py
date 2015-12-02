@@ -82,6 +82,7 @@ class ForegroundBackgroundPair(object):
         return ForegroundBackgroundPair(**intersections)
 
     def flanking_intron(self, direction, genome, nt):
+        """Assuming the initial bed files are exons, get the flanking introns"""
         introns = {}
         for x_ground, bed in self.beds.items():
             prefix = self._prefix(bed, x_ground)
