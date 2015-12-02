@@ -6,20 +6,22 @@ DIRECTIONS = 'upstream', 'downstream'
 
 def construct_homer_command(foreground_filename, background_filename,
                             homer_flags, findMotifsGenome,
-                            out_dir_prefix=None):
-    if out_dir_prefix is None:
+                            out_dir=None, force=False):
+    if out_dir is None:
         out_dir = foreground_filename.replace('.bed', '')
+    if force or not os.path.exists(out_dir):
+        command = '{} {} hg19 {} -bg {} {}'.format(
+            findMotifsGenome, foreground_filename, out_dir, background_filename,
+            homer_flags)
+        return command
     else:
-        out_dir = '{}/{}'.format(
-            out_dir_prefix,
-            os.path.basename(foreground_filename).replace('.bed', ''))
-    command = '{} {} hg19 {} -bg {} {}'.format(
-        findMotifsGenome, foreground_filename, out_dir, background_filename,
-        homer_flags)
-    return command
+        raise ValueError('{} already exists, not creating command. To create '
+                         'the command anyway, use force=True')
+
 
 def unique_regions(bed):
     return pybedtools.BedTool(list(set(x for x in bed)))
+
 
 def get_flanking_intron(bed, direction, genome, nt):
     if direction == 'downstream':
