@@ -53,6 +53,7 @@ class ForegroundBackgroundPair(object):
         if isinstance(filename, pybedtools.BedTool):
             return filename
         else:
+            # Probably need a try/except here
             return pybedtools.BedTool(filename)
 
     def __repr__(self):
