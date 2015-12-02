@@ -34,7 +34,7 @@ pair = pyhomer.ForegroundBackgroundPair('foreground.bed', 'background.bed')
 ```python
 n_processors = 4
 homer_flags = '-rna -len 4,5,6 -mset vertebrates -mis 0 -p {} -noweight'.format(n_processors)
-command = construct_homer_command(pair.foreground.fn, pair.background.fn, 
+command = pyhomer.construct_homer_command(pair.foreground.fn, pair.background.fn, 
     homer_flags)
 ```
 
