@@ -20,4 +20,38 @@ To install this code, clone this github repository and use `pip` to install
 
 ## Features
 
-* TODO
+First, you'll want to create a `ForegroundBackgroundPair`
+
+
+```python 
+import pyhomer
+
+pair = pyhomer.ForegroundBackgroundPair('foreground.bed', 'background.bed')
+```
+
+### Create a `homer` command
+
+```python
+n_processors = 4
+homer_flags = '-rna -len 4,5,6 -mset vertebrates -mis 0 -p {} -noweight'.format(n_processors)
+command = construct_homer_command(pair.foreground.fn, pair.background.fn, 
+    homer_flags)
+```
+
+And the value of `command` is:
+
+```
+findMotifsGenome.pl ... FILLMEIN
+```
+
+### Intersect with other bed files, and keep foreground/background
+
+```python
+conserved_pair = pair.intersect('primate_conserved.bed', 'primate')
+```
+
+### Get flanking introns, keeping foreground/background
+
+```python
+intron_pair = pair.flanking_intron('downstream', genome='hg19', nt=400)
+```
