@@ -44,9 +44,11 @@ def get_flanking_intron(bed, direction, genome, nt):
 
 class ForegroundBackgroundPair(object):
 
-    def __init__(self, foreground, background):
+    def __init__(self, foreground, background, genome='hg19'):
         self.foreground = self.maybe_make_bedtool(foreground)
         self.background = self.maybe_make_bedtool(background)
+        self.genome = genome
+
         self.beds = {'foreground': self.foreground,
                      'background': self.background}
 
@@ -85,14 +87,14 @@ class ForegroundBackgroundPair(object):
             intersections[x_ground] = intersected
         return ForegroundBackgroundPair(**intersections)
 
-    def flanking_intron(self, direction, genome, nt):
+    def flanking_intron(self, direction, nt):
         """Get upstream/downstream regions, return ForegroundBackgroundPair"""
         introns = {}
         for x_ground, bed in self.beds.items():
             prefix = self._prefix(bed, x_ground)
             intron_filename = '{prefix}_{direction}{nt}_{name}.bed'.format(
                 prefix=prefix, direction=direction, nt=nt, name=x_ground)
-            intron = get_flanking_intron(bed, direction, genome, nt)
+            intron = get_flanking_intron(bed, direction, self.genome, nt)
             intron.saveas(intron_filename)
             intron = pybedtools.BedTool(intron_filename)
 
@@ -107,4 +109,4 @@ class ForegroundBackgroundPair(object):
                                        flags=homer_flags,
                                        findMotifsGenome=findMotifsGenome,
                                        out_dir=out_dir, force=force,
-                                       genome='hg19')
+                                       genome=self.genome)
