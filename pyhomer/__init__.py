@@ -4,4 +4,4 @@ __author__ = 'Olga Botvinnik'
 __email__ = 'olga.botvinnik@gmail.com'
 __version__ = '0.1.0'
 
-from .pyhomer import ForegroundBackgroundPair
+from .pyhomer import ForegroundBackgroundPair, construct_homer_command
