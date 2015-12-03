@@ -5,14 +5,16 @@ import pybedtools
 DIRECTIONS = 'upstream', 'downstream'
 
 def construct_homer_command(foreground_filename, background_filename,
-                            homer_flags, findMotifsGenome,
-                            out_dir=None, force=False):
+                            flags, findMotifsGenome, out_dir=None, force=False,
+                            genome='hg19'):
     if out_dir is None:
         out_dir = foreground_filename.replace('.bed', '')
     if force or not os.path.exists(out_dir):
-        command = '{} {} hg19 {} -bg {} {}'.format(
-            findMotifsGenome, foreground_filename, out_dir, background_filename,
-            homer_flags)
+        command = '{findMotifsGenome} {foreground} {genome} {out_dir} -bg ' \
+                  '{background} {flags}'.format(
+            findMotifsGenome=findMotifsGenome, foreground=foreground_filename,
+            out_dir=out_dir, background=background_filename, flags=flags,
+            genome=genome)
         return command
     else:
         raise ValueError('{} already exists, not creating command. To create '
@@ -96,3 +98,13 @@ class ForegroundBackgroundPair(object):
 
             introns[x_ground] = intron
         return ForegroundBackgroundPair(**introns)
+
+    def homer(self, homer_flags, findMotifsGenome='findMotifsGenome.pl',
+              out_dir=None, force=False):
+        """Construct a homer command using these files"""
+
+        return construct_homer_command(self.foreground.fn, self.background.fn,
+                                       flags=homer_flags,
+                                       findMotifsGenome=findMotifsGenome,
+                                       out_dir=out_dir, force=force,
+                                       genome='hg19')
