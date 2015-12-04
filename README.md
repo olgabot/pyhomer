@@ -33,9 +33,8 @@ pair = pyhomer.ForegroundBackgroundPair('foreground.bed', 'background.bed')
 
 ```python
 n_processors = 4
-homer_flags = '-rna -len 4,5,6 -mset vertebrates -mis 0 -p {} -noweight'.format(n_processors)
-command = pyhomer.construct_homer_command(pair.foreground.fn, pair.background.fn, 
-    homer_flags)
+flags = '-rna -len 4,5,6 -mset vertebrates -mis 0 -p {} -noweight'.format(n_processors)
+command = pair.homer(flags=flags, genome='hg19', out_dir='homer/', force=False)
 ```
 
 And the value of `command` is:
@@ -43,6 +42,9 @@ And the value of `command` is:
 ```
 findMotifsGenome.pl ... FILLMEIN
 ```
+
+If the `out_dir` already exists, then `pair.homer()` will raise a `ValueError`. 
+To force creation of the command anyway, set `force=True`. 
 
 ### Intersect with other bed files, and keep foreground/background
 
