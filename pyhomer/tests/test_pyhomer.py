@@ -91,10 +91,9 @@ def test_construct_homer_command_flags(foreground_filename,
     test = pyhomer.construct_homer_command(
         foreground_filename, background_filename, flags=flags)
 
-    true = 'findMotifsGenome.pl {} hg19 {} -bg {} -rna -len 4,5,6 -mset ' \
-           'vertebrates -mis 0 -p 4 -noweight'.format(
+    true = 'findMotifsGenome.pl {} hg19 {} -bg {} {}'.format(
         foreground_filename, foreground_filename.replace('.bed', ''),
-        background_filename)
+        background_filename, flags)
     assert test == true
 
 
@@ -121,9 +120,8 @@ def test_construct_homer_command_out_dir(
         foreground_filename, background_filename,
         out_dir=out_dir)
 
-    true = 'findMotifsGenome.pl {} hg19 {} -bg {}'.format(
-        foreground_filename, 'homer/',
-        background_filename)
+    true = 'findMotifsGenome.pl {} hg19 homer/ -bg {}'.format(
+        foreground_filename, background_filename)
     assert test == true
 
 
@@ -138,8 +136,7 @@ def test_construct_homer_command_force(
         out_dir='./', force=force)
 
     true = 'findMotifsGenome.pl {} hg19 ./ -bg {}'.format(
-        foreground_filename, foreground_filename.replace('.bed', ''),
-        background_filename)
+        foreground_filename, background_filename)
     assert test == true
 
 
