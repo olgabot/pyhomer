@@ -7,7 +7,6 @@
 pyhomer contains utility scripts and functions to work with output from the HOMER motif finding program
 
 * Free software: BSD license
-* Documentation: https://olgabot.github.io/pyhomer
 
 ## Installation
 
