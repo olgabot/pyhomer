@@ -78,7 +78,9 @@ def test_construct_homer_command_vanilla(foreground_filename,
     test = pyhomer.construct_homer_command(
         foreground_filename, background_filename)
 
-    true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed'  # noqa
+    true = 'findMotifsGenome.pl {} hg19 {} -bg {}'.format(
+        foreground_filename, foreground_filename.replace('.bed', ''),
+        background_filename)
     assert test == true
 
 
@@ -89,7 +91,10 @@ def test_construct_homer_command_flags(foreground_filename,
     test = pyhomer.construct_homer_command(
         foreground_filename, background_filename, flags=flags)
 
-    true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed -rna -len 4,5,6 -mset vertebrates -mis 0 -p 4 -noweight'  # noqa
+    true = 'findMotifsGenome.pl {} hg19 {} -bg {} -rna -len 4,5,6 -mset ' \
+           'vertebrates -mis 0 -p 4 -noweight'.format(
+        foreground_filename, foreground_filename.replace('.bed', ''),
+        background_filename)
     assert test == true
 
 
@@ -101,7 +106,9 @@ def test_construct_homer_command_findMotifsGenome(
         foreground_filename, background_filename,
         findMotifsGenome=findMotifsGenome)
 
-    true = '~/bin/findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed'  # noqa
+    true = '~/bin/findMotifsGenome.pl {} hg19 {} -bg {}'.format(
+        foreground_filename, foreground_filename.replace('.bed', ''),
+        background_filename)
     assert test == true
 
 
@@ -114,7 +121,9 @@ def test_construct_homer_command_out_dir(
         foreground_filename, background_filename,
         out_dir=out_dir)
 
-    true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 homer/ -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed'  # noqa
+    true = 'findMotifsGenome.pl {} hg19 {} -bg {}'.format(
+        foreground_filename, 'homer/',
+        background_filename)
     assert test == true
 
 
@@ -128,7 +137,9 @@ def test_construct_homer_command_force(
         foreground_filename, background_filename,
         out_dir='./', force=force)
 
-    true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 ./ -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed'  # noqa
+    true = 'findMotifsGenome.pl {} hg19 ./ -bg {}'.format(
+        foreground_filename, foreground_filename.replace('.bed', ''),
+        background_filename)
     assert test == true
 
 
@@ -139,5 +150,7 @@ def test_construct_homer_command_genome(foreground_filename,
     test = pyhomer.construct_homer_command(
         foreground_filename, background_filename, genome=genome)
 
-    true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed mm10 /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed'  # noqa
+    true = 'findMotifsGenome.pl {} mm10 {} -bg {}'.format(
+        foreground_filename, foreground_filename.replace('.bed', ''),
+        background_filename)
     assert test == true
