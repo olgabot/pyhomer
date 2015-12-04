@@ -5,8 +5,9 @@ import pybedtools
 DIRECTIONS = 'upstream', 'downstream'
 
 def construct_homer_command(foreground_filename, background_filename,
-                            flags, findMotifsGenome, out_dir=None, force=False,
-                            genome='hg19'):
+                            flags=None, findMotifsGenome='findMotifsGenome.pl',
+                            out_dir=None, force=False, genome='hg19'):
+    flags = '' if flags is None else flags
     if out_dir is None:
         out_dir = foreground_filename.replace('.bed', '')
     if force or not os.path.exists(out_dir):
@@ -18,7 +19,7 @@ def construct_homer_command(foreground_filename, background_filename,
         return command
     else:
         raise ValueError('{} already exists, not creating command. To create '
-                         'the command anyway, use force=True')
+                         'the command anyway, use force=True'.format(out_dir))
 
 
 def unique_regions(bed):
