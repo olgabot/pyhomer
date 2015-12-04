@@ -16,6 +16,7 @@ def construct_homer_command(foreground_filename, background_filename,
             findMotifsGenome=findMotifsGenome, foreground=foreground_filename,
             out_dir=out_dir, background=background_filename, flags=flags,
             genome=genome)
+        command = command.rstrip()
         return command
     else:
         raise ValueError('{} already exists, not creating command. To create '
