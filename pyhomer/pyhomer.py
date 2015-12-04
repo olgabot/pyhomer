@@ -4,6 +4,7 @@ import pybedtools
 
 DIRECTIONS = 'upstream', 'downstream'
 
+
 def construct_homer_command(foreground_filename, background_filename,
                             flags=None, findMotifsGenome='findMotifsGenome.pl',
                             out_dir=None, force=False, genome='hg19'):
@@ -11,11 +12,12 @@ def construct_homer_command(foreground_filename, background_filename,
     if out_dir is None:
         out_dir = foreground_filename.replace('.bed', '')
     if force or not os.path.exists(out_dir):
+        kwargs = dict(findMotifsGenome=findMotifsGenome,
+                      foreground=foreground_filename, out_dir=out_dir,
+                      background=background_filename, flags=flags,
+                      genome=genome)
         command = '{findMotifsGenome} {foreground} {genome} {out_dir} -bg ' \
-                  '{background} {flags}'.format(
-            findMotifsGenome=findMotifsGenome, foreground=foreground_filename,
-            out_dir=out_dir, background=background_filename, flags=flags,
-            genome=genome)
+                  '{background} {flags}'.format(**kwargs)
         command = command.rstrip()
         return command
     else:
@@ -41,7 +43,6 @@ def get_flanking_intron(bed, direction, genome, nt):
     # So when taking the flanking sequence, there's a lot of repetition
     intron = unique_regions(intron)
     return intron
-
 
 
 class ForegroundBackgroundPair(object):
@@ -82,8 +83,10 @@ class ForegroundBackgroundPair(object):
         intersections = {}
         for x_ground, bed in self.beds.items():
             prefix = self._prefix(bed, x_ground)
-            intersected_filename = '{prefix}_{other_name}_{x_ground}.bed'.format(
-                prefix=prefix, other_name=other_name, x_ground=x_ground)
+            intersected_filename = '{prefix}_{other_name}_{x_ground}' \
+                                   '.bed'.format(prefix=prefix,
+                                                 other_name=other_name,
+                                                 x_ground=x_ground)
             bed.intersect(other).saveas(intersected_filename)
             intersected = pybedtools.BedTool(intersected_filename)
             intersections[x_ground] = intersected

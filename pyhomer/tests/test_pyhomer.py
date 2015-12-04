@@ -13,10 +13,11 @@ import os
 import pytest
 import pybedtools
 
+
 @pytest.fixture
 def foreground_filename():
     dirname = os.path.dirname(__file__)
-    return  '{}/foreground.bed'.format(dirname)
+    return '{}/foreground.bed'.format(dirname)
 
 
 @pytest.fixture(params=['BedTool', 'filename'])
@@ -26,10 +27,11 @@ def foreground(request, foreground_filename):
     elif request.param == 'BedTool':
         return pybedtools.BedTool(foreground_filename)
 
+
 @pytest.fixture
 def background_filename():
     dirname = os.path.dirname(__file__)
-    return  '{}/background.bed'.format(dirname)
+    return '{}/background.bed'.format(dirname)
 
 
 @pytest.fixture(params=['BedTool', 'filename'])
@@ -87,7 +89,7 @@ def test_construct_homer_command_flags(foreground_filename,
     test = pyhomer.construct_homer_command(
         foreground_filename, background_filename, flags=flags)
 
-    true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed -rna -len 4,5,6 -mset vertebrates -mis 0 -p 4 -noweight'# noqa
+    true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed -rna -len 4,5,6 -mset vertebrates -mis 0 -p 4 -noweight'  # noqa
     assert test == true
 
 
@@ -128,6 +130,7 @@ def test_construct_homer_command_force(
 
     true = 'findMotifsGenome.pl /Users/olga/workspace-git/pyhomer/pyhomer/tests/foreground.bed hg19 ./ -bg /Users/olga/workspace-git/pyhomer/pyhomer/tests/background.bed'  # noqa
     assert test == true
+
 
 def test_construct_homer_command_genome(foreground_filename,
                                         background_filename, genome):
