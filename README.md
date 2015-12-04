@@ -1,6 +1,6 @@
 # Python HOMER tools
 
-[![](https://img.shields.io/travis/olgabot/pyhomer.svg)](https://travis-ci.org/olgabot/pyhomer)[![](https://img.shields.io/pypi/v/pyhomer.svg)](https://pypi.python.org/pypi/pyhomer)
+[![Build Status](https://travis-ci.org/olgabot/pyhomer.svg?branch=master)](https://travis-ci.org/olgabot/pyhomer)[![](https://img.shields.io/pypi/v/pyhomer.svg)](https://pypi.python.org/pypi/pyhomer)
 
 ## What is `Python HOMER tools`?
 
@@ -23,7 +23,7 @@ To install this code, clone this github repository and use `pip` to install
 First, you'll want to create a `ForegroundBackgroundPair`
 
 
-```python 
+```python
 import pyhomer
 
 pair = pyhomer.ForegroundBackgroundPair('foreground.bed', 'background.bed')
@@ -43,8 +43,8 @@ And the value of `command` is:
 findMotifsGenome.pl ... FILLMEIN
 ```
 
-If the `out_dir` already exists, then `pair.homer()` will raise a `ValueError`. 
-To force creation of the command anyway, set `force=True`. 
+If the `out_dir` already exists, then `pair.homer()` will raise a `ValueError`.
+To force creation of the command anyway, set `force=True`.
 
 ### Intersect with other bed files, and keep foreground/background
 
