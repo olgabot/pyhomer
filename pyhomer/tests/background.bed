@@ -1,0 +1,8 @@
+chr1	300	350	exon3_positive	.	+
+chr1	300	350	exon3_negative	.	-
+chr1	225	250	exon2_positive	.	+
+chr1	225	250	exon2_negative	.	-
+chr1	200	250	exon2a3ss_positive	.	+
+chr1	200	250	exon2a3ss_negative	.	-
+chr1	475	500	exon4alt_positive	.	+
+chr1	475	500	exon4alt_negative	.	-
