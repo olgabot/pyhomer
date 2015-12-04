@@ -62,7 +62,7 @@ class ForegroundBackgroundPair(object):
             return pybedtools.BedTool(filename)
 
     def __repr__(self):
-        s = 'ForegroundBackgroundPair:\nForeground: {} ({}) entries' \
+        s = 'ForegroundBackgroundPair:\nForeground: {} ({} entries)' \
             '\nBackground: {} ({} entries)'.format(
                 self.foreground.fn, len(self.foreground),
                 self.background.fn, len(self.background))
